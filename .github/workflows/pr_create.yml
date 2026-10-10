@@ -1,0 +1,22 @@
+name: Create PR from Sync branch (PoC)
+
+on:
+  push:
+    branches:
+      - "sync/**"
+
+permissions:
+  contents: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Simulate vulnerable step (no real PAT needed)
+        run: |
+          echo "Simulated: gh pr create --title \"Sync: ${{ github.ref_name }}\" --head \"${{ github.ref_name }}\""
+          whoami
+          echo "If injected, you will see extra output above from the injected command."
